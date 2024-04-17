@@ -137,8 +137,7 @@ CREATE TABLE movies (
 
 CREATE TABLE actors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  actor_first_name TEXT,
-  actor_last_name TEXT
+  actor_name TEXT
 );
 
 CREATE TABLE movie_cast (
@@ -162,18 +161,18 @@ VALUES ("Batman Begins", "2005", "PG-13", "1"),
 ("The Dark Knight", "2008", "PG-13", "1"),
 ("The Dark Knight Rises", "2012", "PG-13", "1");
 
-INSERT INTO actors (actor_first_name, actor_last_name)
-VALUES ("Christian", "Bale"),
-("Michael", "Caine"),
-("Liam", "Neeson"),
-("Katie", "Holmes"),
-("Gary", "Oldman"),
-("Heath", "Ledger"),
-("Aaron", "Eckhart"),
-("Maggie", "Gyllenhaal"),
-("Tom", "Hardy"),
-("Joseph", "Gordon-Levitt"),
-("Anne", "Hathaway");
+INSERT INTO actors (actor_name)
+VALUES ("Christian Bale"),
+("Michael Caine"),
+("Liam Neeson"),
+("Katie Holmes"),
+("Gary Oldman"),
+("Heath Ledger"),
+("Aaron Eckhart"),
+("Maggie Gyllenhaal"),
+("Tom Hardy"),
+("Joseph Gordon-Levitt"),
+("Anne Hathaway");
 
 INSERT INTO movie_cast (character_name, movie_id, actor_id)
 VALUES ("Bruce Wayne", 1, 1),
@@ -200,6 +199,10 @@ VALUES ("Bruce Wayne", 1, 1),
 -- The SQL statement for the movies output
 -- TODO!
 
+SELECT movies.title, movies.year_released, movies.rating, studios.studio_name
+FROM movies INNER JOIN studios
+ORDER BY movies.title;
+
 -- Prints a header for the cast output
 .print ""
 .print "Top Cast"
@@ -209,3 +212,7 @@ VALUES ("Bruce Wayne", 1, 1),
 
 -- The SQL statement for the cast output
 -- TODO!
+
+SELECT movies.title, actors.actor_name, movie_cast.character_name
+FROM movies INNER JOIN studios INNER JOIN movie_cast
+ORDER BY movies.title;
