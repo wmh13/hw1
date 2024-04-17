@@ -113,50 +113,84 @@
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
 
-DROP TABLE IF EXISTS movies;
-DROP TABLE IF EXISTS studios;
 DROP TABLE IF EXISTS movie_cast;
 DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS studios;
 
 
 -- Create new tables, according to your domain model
 -- TODO!
+
+CREATE TABLE studios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  studio_name TEXT
+);
 
 CREATE TABLE movies (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT,
   year_released TEXT,
   rating TEXT,
-  studio TEXT,
   studio_id INTEGER
-);
-
-CREATE TABLE studios (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  studio_name TEXT,
-  movie_id INTEGER
-);
-
-CREATE TABLE movie_cast (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  actor_first_name TEXT,
-  actor_last_name TEXT,
-  character_first_name TEXT,
-  character_last_name TEXT,
-  movie_id INTEGER
 );
 
 CREATE TABLE actors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   actor_first_name TEXT,
-  actor_last_name TEXT,
+  actor_last_name TEXT
+);
+
+CREATE TABLE movie_cast (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  character_name TEXT,
   movie_id INTEGER,
-  movie_cast_id INTEGER,
+  actor_id INTEGER
 );
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+
+INSERT INTO studios (studio_name) 
+VALUES ("Warner Bros.");
+
+INSERT INTO movies (
+  title, year_released, rating, studio_id
+)
+VALUES ("Batman Begins", "2005", "PG-13", "1"),
+("The Dark Knight", "2008", "PG-13", "1"),
+("The Dark Knight Rises", "2012", "PG-13", "1");
+
+INSERT INTO actors (actor_first_name, actor_last_name)
+VALUES ("Christian", "Bale"),
+("Michael", "Caine"),
+("Liam", "Neeson"),
+("Katie", "Holmes"),
+("Gary", "Oldman"),
+("Heath", "Ledger"),
+("Aaron", "Eckhart"),
+("Maggie", "Gyllenhaal"),
+("Tom", "Hardy"),
+("Joseph", "Gordon-Levitt"),
+("Anne", "Hathaway");
+
+INSERT INTO movie_cast (character_name, movie_id, actor_id)
+VALUES ("Bruce Wayne", 1, 1),
+("Bruce Wayne", 2, 1),
+("Bruce Wayne", 3, 1),
+("Alfred", 1, 2),
+("Alfred", 2, 2),
+("Ra's Al Ghul", 1, 3),
+("Rachel Dawes", 1, 4),
+("Commissioner Gordon", 1, 5),
+("Commissioner Gordon", 3, 5),
+("Joker", 2, 6),
+("Harvey Dent", 2, 7),
+("Rachel Dawes", 2, 8),
+("Bane", 3, 9),
+("John Blake", 3, 10),
+("Selina Kyle", 3, 11);
 
 -- Prints a header for the movies output
 .print "Movies"
