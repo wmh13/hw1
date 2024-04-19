@@ -154,9 +154,7 @@ CREATE TABLE movie_cast (
 INSERT INTO studios (studio_name) 
 VALUES ("Warner Bros.");
 
-INSERT INTO movies (
-  title, year_released, rating, studio_id
-)
+INSERT INTO movies (title, year_released, rating, studio_id)
 VALUES ("Batman Begins", "2005", "PG-13", "1"),
 ("The Dark Knight", "2008", "PG-13", "1"),
 ("The Dark Knight Rises", "2012", "PG-13", "1");
@@ -200,7 +198,7 @@ VALUES ("Bruce Wayne", 1, 1),
 -- TODO!
 
 SELECT movies.title, movies.year_released, movies.rating, studios.studio_name
-FROM movies INNER JOIN studios
+FROM movies INNER JOIN studios ON movies.studio_id = studios.id
 ORDER BY movies.title;
 
 -- Prints a header for the cast output
@@ -214,5 +212,6 @@ ORDER BY movies.title;
 -- TODO!
 
 SELECT movies.title, actors.actor_name, movie_cast.character_name
-FROM movies INNER JOIN studios INNER JOIN movie_cast
+FROM movie_cast JOIN movies ON movie_cast.movie_id = movies.id 
+JOIN actors ON movie_cast.actor_id = actors.id
 ORDER BY movies.title;
